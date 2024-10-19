@@ -38,8 +38,8 @@
 		console.log(Pitch2.string);
 		console.log('====================');
 		console.log('Interval class: ' + calcIntervalClass(Pitch1, Pitch2));
-		console.log('Interval size in half steps: ' + calcIntervalHalfStep(Pitch1, Pitch2));
-		console.log('Interval size in half steps: ' + calcIntervalHalfStep(Pitch2, Pitch1));
+		console.log('Interval size in half steps: ' + calcHalfStepsFromPitches(Pitch1, Pitch2));
+		console.log('Interval size in half steps: ' + calcHalfStepsFromPitches(Pitch2, Pitch1));
 		console.log(buildIntervalName(Pitch2, Pitch1));
 
 		console.log(new Interval('dddd2'));

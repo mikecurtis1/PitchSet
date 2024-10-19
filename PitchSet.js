@@ -110,7 +110,7 @@ class Interval {
         this.number = str.match(/(\d+)$/)[0];
         this.simple = calcSimpleClass(this.number);
         this.normalized = normalizeCompoundClass(this.number);
-        this.halfSteps = calcIntervalSize(this.simple, this.normalized, this.quality);
+        this.halfSteps = calcHalfStepsFromCodes(this.simple, this.normalized, this.quality);
     }
 }
 
@@ -159,26 +159,26 @@ const calcPitchPosChromatic = function(letter, octave) {
 }
 
 const limitOctave = function (n){
-    n = Number(n);
-    if (n < 0) {
+    let octaveNum = Number(n);
+    if (octaveNum < 0) {
         return 0;
-    } else if (n > 8) {
+    } else if (octaveNum > 8) {
         return 8;
     } 
-    return n;
+    return octaveNum;
 }
 
 const calcSimpleClass = function (n) {
-    let s = 0;
+    let simple = 0;
     n = Number(n);
-    s = n % 7;
-    if (s === 0) {
-        s = 7;
+    simple = n % 7;
+    if (simple === 0) {
+        simple = 7;
     }
-    if (s === 1 && n >= 8){
-        s = 8;
+    if (simple === 1 && n >= 8){
+        simple = 8;
     }
-    return s;
+    return simple;
 }
 
 const normalizeCompoundClass = function (n) {
@@ -242,7 +242,7 @@ const quantifyAccidentals = function (str){
     return halfSteps;
 }
 
-const calcIntervalHalfSteps = function (p1, p2, accidentalsTotal=false){
+const calcHalfStepsFromPitches = function (p1, p2, accidentalsTotal=false){
     let halfSteps = 0;
     let pos1 = calcPitchPosChromatic(p1.letter, p1.octave);
     let pos2 = calcPitchPosChromatic(p2.letter, p2.octave);
@@ -264,33 +264,33 @@ const calcIntervalHalfSteps = function (p1, p2, accidentalsTotal=false){
     }
 }
 
-const calcIntervalSize = function (simple, normalized, quality) {
-    let size = 0;
+const calcHalfStepsFromCodes = function (simple, normalized, quality) {
+    let halfSteps = 0;
     if ( FiniteIntervals[simple] ) {
         if ( quality.match(/^d+$/g) ) {
             let min = Math.min.apply(Math, FiniteIntervals[simple]['sizes']);
             let len = quality.length;
-            size = min - len;
+            halfSteps = min - len;
         } else if ( quality.match(/^A+$/g) ) {
             let max = Math.max.apply(Math, FiniteIntervals[simple]['sizes']);
             let len = quality.length;
-            size = max + len;
+            halfSteps = max + len;
         } else {
-            size = FiniteIntervals[simple][quality];
+            halfSteps = FiniteIntervals[simple][quality];
         }
     }
     let q = normalized / 8;
     if ( q >= 1 ) {
-        size = size + (Math.ceil(q) - 1) * 12
+        halfSteps = halfSteps + (Math.ceil(q) - 1) * 12
     }
-    return size;
+    return halfSteps;
 }
 
 const buildIntervalName = function(pitch1, pitch2){
     let intervalName = '';
-    let accidentalsTotal = calcIntervalHalfSteps(pitch2, pitch1, true);
+    let accidentalsTotal = calcHalfStepsFromPitches(pitch2, pitch1, true);
     let intervalClass = calcIntervalClass(pitch1, pitch2);
-    let halfSteps = calcIntervalHalfSteps(pitch1, pitch2);
+    let halfSteps = calcHalfStepsFromPitches(pitch1, pitch2);
     let simpleClass = calcSimpleClass(Number(intervalClass));
     let simpleHalfSteps = 0;
     if (intervalClass > 8) {
@@ -324,7 +324,7 @@ const harmonizePitch = function (pitch1, interval) {
     let letter2 = calcPosLetter(pos2);
     let octave = calcPosOctave(pos2);
     let tempPitch2 = new Pitch(letter2 + '' + octave);
-    let tempSize = calcIntervalHalfSteps(pitch1, tempPitch2);
+    let tempSize = calcHalfStepsFromPitches(pitch1, tempPitch2);
     let diff = interval.halfSteps - tempSize;
     if (diff < 0) {
         accidentals = String('♭').repeat(Math.abs(diff));
