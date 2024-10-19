@@ -242,7 +242,7 @@ const quantifyAccidentals = function (str){
     return halfSteps;
 }
 
-const calcIntervalHalfStep = function (p1, p2, accidentalsTotal=false){
+const calcIntervalHalfSteps = function (p1, p2, accidentalsTotal=false){
     let halfSteps = 0;
     let pos1 = calcPitchPosChromatic(p1.letter, p1.octave);
     let pos2 = calcPitchPosChromatic(p2.letter, p2.octave);
@@ -288,9 +288,9 @@ const calcIntervalSize = function (simple, normalized, quality) {
 
 const buildIntervalName = function(pitch1, pitch2){
     let intervalName = '';
-    let accidentalsTotal = calcIntervalHalfStep(pitch2, pitch1, true);
+    let accidentalsTotal = calcIntervalHalfSteps(pitch2, pitch1, true);
     let intervalClass = calcIntervalClass(pitch1, pitch2);
-    let halfSteps = calcIntervalHalfStep(pitch1, pitch2);
+    let halfSteps = calcIntervalHalfSteps(pitch1, pitch2);
     let simpleClass = calcSimpleClass(Number(intervalClass));
     let simpleHalfSteps = 0;
     if (intervalClass > 8) {
@@ -324,7 +324,7 @@ const harmonizePitch = function (pitch1, interval) {
     let letter2 = calcPosLetter(pos2);
     let octave = calcPosOctave(pos2);
     let tempPitch2 = new Pitch(letter2 + '' + octave);
-    let tempSize = calcIntervalHalfStep(pitch1, tempPitch2);
+    let tempSize = calcIntervalHalfSteps(pitch1, tempPitch2);
     let diff = interval.halfSteps - tempSize;
     if (diff < 0) {
         accidentals = String('♭').repeat(Math.abs(diff));
