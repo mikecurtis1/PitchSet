@@ -150,6 +150,14 @@ const PosOrder = function (pos) {
     return order
 }
 
+const PitchPosChromatic = function(letter, octave) {
+    let pitchPos = 0;
+    let order = 0;
+    order = ChromaticOrder[letter];
+    pitchPos = order + (octave * 12);
+    return pitchPos;
+}
+
 const OctaveLimit = function (n){
     n = Number(n);
     if (n < 0) {
@@ -182,6 +190,20 @@ const normalizeCompoundClass = function (n) {
             normalized = normalized - (f - 2) * 7;
         } else {
             normalized = normalized - (f - 1) * 7;
+        }
+    }
+    return normalized;
+}
+
+const normalizeCompoundHalfSteps = function(n){
+    n = Number(n);
+    let normalized = n;
+    if (n > 24) {
+        let f = Math.floor(n / 12);
+        if (n % 12 === 1 || n % 12 === 0) {
+            normalized = normalized - (f - 2) * 12;
+        } else {
+            normalized = normalized - (f - 1) * 12;
         }
     }
     return normalized;
@@ -222,31 +244,24 @@ const AccidentalHalfSteps = function (str){
 
 const CalculateIntervalHalfStep = function (p1, p2, accidentalsTotal=false){
     let halfSteps = 0;
-    let n1 = ChromaticOrder[p1.letter] + p1.octave * 12;
-    let n2 = ChromaticOrder[p2.letter] + p2.octave * 12;
-    let diff = Math.abs(n1 - n2);
+    let pos1 = PitchPosChromatic(p1.letter, p1.octave);
+    let pos2 = PitchPosChromatic(p2.letter, p2.octave);
+    let diff = Math.abs(pos1 - pos2);
     halfSteps = diff;
-    if (n1 < n2) {
+    if (pos1 < pos2) {
         halfSteps = halfSteps - p1.halfStepAlterations;
-    } 
-    if (n1 > n2) {
-        halfSteps = halfSteps + p1.halfStepAlterations;
-    }
-    if (n2 < n1) {
-        halfSteps = halfSteps - p2.halfStepAlterations;
-    } 
-    if (n2 > n1) {
         halfSteps = halfSteps + p2.halfStepAlterations;
+    } 
+    if (pos1 > pos2) {
+        halfSteps = halfSteps + p1.halfStepAlterations;
+        halfSteps = halfSteps - p2.halfStepAlterations;
     }
-    if (accidentalsTotal==true) {
+    if (accidentalsTotal === true) {
         return halfSteps - diff;
+    } else {
+        halfSteps = normalizeCompoundHalfSteps(halfSteps);
+        return halfSteps;
     }
-    let normalized = halfSteps;
-    while (diff > 24) {
-        diff = diff - 12;
-        normalized = normalized - 12;
-    }
-    return normalized;
 }
 
 const getIntervalSize = function (simple, normalized, quality) {
