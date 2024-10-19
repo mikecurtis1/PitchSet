@@ -114,6 +114,84 @@ class Interval {
     }
 }
 
+const PitchPos = function(letter, octave) {
+    let pitchPos = 0;
+    let order = 0;
+    order = GamutOrder[letter];
+    pitchPos = order + (octave * 7);
+    return pitchPos;
+}
+
+const PosOctave = function (pos){
+    let octave = 0;
+    pos = Number(pos);
+    octave = Math.floor(pos/7);
+    return octave;
+}
+
+const PosLetter = function (pos) {
+    let letter = '';
+    pos = Number(pos);
+    let i = pos % 7;
+    if (i===0){
+        i = 7;
+    }
+    letter = GamutOrder[i];
+    return letter;
+}
+
+const PosOrder = function (pos) {
+    let order = 0;
+    pos = Number(pos);
+    order = pos % 7;
+    if (order === 0){
+        order = 7;
+    }
+    return order
+}
+
+const OctaveLimit = function (n){
+    n = Number(n);
+    if (n < 0) {
+        return 0;
+    } else if (n > 8) {
+        return 8;
+    } 
+    return n;
+}
+
+const getSimpleClass = function (n) {
+    let s = 0;
+    n = Number(n);
+    s = n % 7;
+    if (s === 0) {
+        s = 7;
+    }
+    if (s === 1 && n >= 8){
+        s = 8;
+    }
+    return s;
+}
+
+const normalizeCompoundClass = function (n) {
+    n = Number(n);
+    let normalized = n;
+    if (n > 15) {
+        let f = Math.floor((n - 9) / 7);
+        normalized = normalized - (7 * f);
+    }
+    return normalized;
+}
+
+const CalculateIntervalClass = function (p1, p2){
+    let IntervalClass = 0;
+    let n1 = GamutOrder[p1.letter] + p1.octave * 7;
+    let n2 = GamutOrder[p2.letter] + p2.octave * 7;
+    IntervalClass = Math.abs(n1 - n2) + 1;
+    let normalized = normalizeCompoundClass(IntervalClass);
+    return normalized;
+}
+
 const AccidentalHalfSteps = function (str){
     let halfSteps = 0;
     Array.from(str).forEach(
@@ -136,16 +214,6 @@ const AccidentalHalfSteps = function (str){
         }
     );
     return halfSteps;
-}
-
-const OctaveLimit = function (n){
-    n = Number(n);
-    if (n < 0) {
-        return 0;
-    } else if (n > 8) {
-        return 8;
-    } 
-    return n;
 }
 
 const CalculateIntervalHalfStep = function (p1, p2, accidentalsTotal=false){
@@ -175,38 +243,6 @@ const CalculateIntervalHalfStep = function (p1, p2, accidentalsTotal=false){
         normalized = normalized - 12;
     }
     return normalized;
-}
-
-const normalizeCompoundClass = function (n) {
-    n = Number(n);
-    let normalized = n;
-    if (n > 15) {
-        let f = Math.floor((n - 9) / 7);
-        normalized = normalized - (7 * f);
-    }
-    return normalized;
-}
-
-const CalculateIntervalClass = function (p1, p2){
-    let IntervalClass = 0;
-    let n1 = GamutOrder[p1.letter] + p1.octave * 7;
-    let n2 = GamutOrder[p2.letter] + p2.octave * 7;
-    IntervalClass = Math.abs(n1 - n2) + 1;
-    let normalized = normalizeCompoundClass(IntervalClass);
-    return normalized;
-}
-
-const getSimpleClass = function (n) {
-    let s = 0;
-    n = Number(n);
-    s = n % 7;
-    if (s === 0) {
-        s = 7;
-    }
-    if (s === 1 && n >= 8){
-        s = 8;
-    }
-    return s;
 }
 
 const getIntervalSize = function (simple, normalized, quality) {
@@ -258,42 +294,6 @@ const getIntervalName = function(pitch1, pitch2){
         intervalName = String('A').repeat(m).concat(intervalName);
     }
     return intervalName;
-}
-
-const PitchPos = function(letter, octave) {
-    let pitchPos = 0;
-    let order = 0;
-    order = GamutOrder[letter];
-    pitchPos = order + (octave * 7);
-    return pitchPos;
-}
-
-const PosOctave = function (pos){
-    let octave = 0;
-    pos = Number(pos);
-    octave = Math.floor(pos/7);
-    return octave;
-}
-
-const PosLetter = function (pos) {
-    let letter = '';
-    pos = Number(pos);
-    let i = pos % 7;
-    if (i===0){
-        i = 7;
-    }
-    letter = GamutOrder[i];
-    return letter;
-}
-
-const PosOrder = function (pos) {
-    let order = 0;
-    pos = Number(pos);
-    order = pos % 7;
-    if (order === 0){
-        order = 7;
-    }
-    return order
 }
 
 const Harmonize = function (pitch1, interval) {
