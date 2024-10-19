@@ -177,8 +177,12 @@ const normalizeCompoundClass = function (n) {
     n = Number(n);
     let normalized = n;
     if (n > 15) {
-        let f = Math.floor((n - 9) / 7);
-        normalized = normalized - (7 * f);
+        let f = Math.floor(n / 7);
+        if (n % 7 === 1 || n % 7 === 0) {
+            normalized = normalized - (f - 2) * 7;
+        } else {
+            normalized = normalized - (f - 1) * 7;
+        }
     }
     return normalized;
 }
