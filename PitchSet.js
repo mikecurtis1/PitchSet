@@ -191,9 +191,9 @@ const CalculateIntervalClass = function (p1, p2){
     let intervalClass = 0;
     let pos1 = PitchPos(p1.letter, p1.octave);
     let pos2 = PitchPos(p2.letter, p2.octave);
-    intervalClass = normalizeCompoundClass( Math.abs(pos1 - pos2) + 1 );
-    let normalized = intervalClass;
-    return normalized;
+    intervalClass = Math.abs(pos1 - pos2) + 1;
+    intervalClass = normalizeCompoundClass(intervalClass);
+    return intervalClass;
 }
 
 const AccidentalHalfSteps = function (str){
