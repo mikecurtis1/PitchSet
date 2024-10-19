@@ -1,0 +1,146 @@
+<html>
+<head>
+<title>SunsetTravel</title>
+<link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+</head>
+<body>
+    <script src="./PitchSet.js"></script>
+    <script>
+	
+		/*
+		// ♯ ♭
+		const Pitch1 = new Pitch('C♯♯2');
+		const Pitch2 = new Pitch('D♭♭2');
+		//const Pitch1 = new Pitch('C2');
+		//const Pitch2 = new Pitch('G♭2');
+		//const Pitch1 = new Pitch('C2');
+		//const Pitch2 = new Pitch('D5');
+		//const Pitch1 = new Pitch('C♭♭2');
+		//const Pitch2 = new Pitch('D♯♯5');
+		//const Pitch1 = new Pitch('C♭♭2');
+		//const Pitch2 = new Pitch('D♯♯2');
+		//const Pitch1 = new Pitch('C♯♯2');
+		//const Pitch2 = new Pitch('D♭♭2');
+		//const Pitch1 = new Pitch('C2');
+		//const Pitch2 = new Pitch('B4');
+		//const Pitch1 = new Pitch('C2');
+		//const Pitch2 = new Pitch('F♯5');
+		//const Pitch1 = new Pitch('C𝄫2');
+		//const Pitch2 = new Pitch('F♯♯♯2');
+
+		console.log('====================');
+		console.log(Pitch1);
+		console.log(Pitch2);
+		console.log('====================');
+		console.log(Pitch1.string);
+		console.log(Pitch2.string);
+		console.log('====================');
+		console.log('Interval class: ' + CalculateIntervalClass(Pitch1, Pitch2));
+		console.log('Interval size in half steps: ' + CalculateIntervalHalfStep(Pitch1, Pitch2));
+		console.log('Interval size in half steps: ' + CalculateIntervalHalfStep(Pitch2, Pitch1));
+		console.log(getIntervalName(Pitch2, Pitch1));
+
+		console.log(new Interval('dddd2'));
+		console.log(new Interval('ddd2'));
+
+		console.log('15:' + normalizeCompoundClass(15));
+		console.log('16:' + normalizeCompoundClass(16));
+		console.log('18:' + normalizeCompoundClass(18));
+		console.log('21:' + normalizeCompoundClass(21));
+		console.log('22:' + normalizeCompoundClass(22));
+		console.log('23:' + normalizeCompoundClass(23));
+		console.log('25:' + normalizeCompoundClass(25));
+		console.log('28:' + normalizeCompoundClass(28));
+		console.log('1:' + normalizeCompoundClass(1));
+		console.log('4:' + normalizeCompoundClass(4));
+		console.log('7:' + normalizeCompoundClass(7));
+		console.log('8:' + normalizeCompoundClass(8));
+		console.log('9:' + normalizeCompoundClass(9));
+		console.log('14:' + normalizeCompoundClass(14));
+		console.log('15:' + normalizeCompoundClass(15));
+		console.log('16:' + normalizeCompoundClass(16));
+		console.log('21:' + normalizeCompoundClass(21));
+		console.log('22:' + normalizeCompoundClass(22));
+
+		console.log(new Interval('A11'));
+
+		console.log(GamutOrder['F']);
+		console.log(GamutOrder[GamutOrder['F']]);
+		console.log(GamutOrder[GamutOrder['F']+2]);
+		let letter1 = 'D';
+		let steps = 4;
+		let start = Number(GamutOrder[letter1]);
+		let end = Number(start + steps);
+		let letter2 = GamutOrder[end];
+		console.log(end);
+		console.log('Letter1:'+letter1+', ascend:'+steps+', to letter2:'+letter2);
+		*/
+		
+		/*
+		const testPitch = new Pitch('C4');
+		
+		console.log(testPitch);
+
+		console.log(PitchPos(testPitch.letter, testPitch.octave));
+
+		console.log(PosOctave(29));
+
+		console.log(PosLetter(29));
+
+		console.log(PosOrder(29));
+
+		console.log(new Interval('ddd2'));
+		console.log(getIntervalName(new Pitch('C♯♯2'), new Pitch('D♭♭2')));
+		console.log(getIntervalName(new Pitch('B3'), new Pitch('C♭♭♭4')));
+
+		console.log(new Interval('d5'));
+		console.log(getIntervalName(new Pitch('B3'), new Pitch('F4')));
+		console.log(getIntervalName(new Pitch('C4'), new Pitch('G♭4')));
+
+		console.log(new Interval('AAA2'));
+		console.log(getIntervalName(new Pitch('C♭4'), new Pitch('D♯♯4')));
+		console.log(getIntervalName(new Pitch('C4'), new Pitch('D♯♯♯4')));
+		console.log(getIntervalName(new Pitch('B3'), new Pitch('C♯♯♯♯4')));
+
+		console.log(new Interval('M3'));
+		console.log(getIntervalName(new Pitch('B♭3'), new Pitch('D4')));
+		console.log(getIntervalName(new Pitch('D4'), new Pitch('F♯4')));
+		console.log(getIntervalName(new Pitch('C4'), new Pitch('E4')));
+
+		console.log(new Interval('P5'));
+		console.log(getIntervalName(new Pitch('B♭3'), new Pitch('F4')));
+		console.log(getIntervalName(new Pitch('B♮3'), new Pitch('F♯4')));
+		console.log(getIntervalName(new Pitch('C4'), new Pitch('G4')));
+
+		*/
+
+        // ♯ ♭
+
+        console.log('==================================================');
+        console.log(new Pitch('C♭4'));
+        console.log(new Interval('m2'));
+        console.log(Harmonize(new Pitch('C♭4'), new Interval('m2')));
+
+        console.log('==================================================');
+        console.log(new Pitch('C4'));
+        console.log(new Interval('m3'));
+        console.log(Harmonize(new Pitch('C4'), new Interval('m3')));
+
+        console.log('==================================================');
+        console.log(new Pitch('C4'));
+        console.log(new Interval('A4'));
+        console.log(Harmonize(new Pitch('C4'), new Interval('A4')));
+
+        console.log('==================================================');
+        console.log(new Pitch('C4'));
+        console.log(new Interval('A6'));
+        console.log(Harmonize(new Pitch('C4'), new Interval('A6')));
+
+        console.log('==================================================');
+        console.log(new Pitch('C4'));
+        console.log(new Interval('m21'));
+        console.log(Harmonize(new Pitch('C4'), new Interval('m21')));
+    </script>
+</body>
+</html>
