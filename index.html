@@ -37,10 +37,10 @@
 		console.log(Pitch1.string);
 		console.log(Pitch2.string);
 		console.log('====================');
-		console.log('Interval class: ' + CalculateIntervalClass(Pitch1, Pitch2));
-		console.log('Interval size in half steps: ' + CalculateIntervalHalfStep(Pitch1, Pitch2));
-		console.log('Interval size in half steps: ' + CalculateIntervalHalfStep(Pitch2, Pitch1));
-		console.log(getIntervalName(Pitch2, Pitch1));
+		console.log('Interval class: ' + calcIntervalClass(Pitch1, Pitch2));
+		console.log('Interval size in half steps: ' + calcIntervalHalfStep(Pitch1, Pitch2));
+		console.log('Interval size in half steps: ' + calcIntervalHalfStep(Pitch2, Pitch1));
+		console.log(buildIntervalName(Pitch2, Pitch1));
 
 		console.log(new Interval('dddd2'));
 		console.log(new Interval('ddd2'));
@@ -83,36 +83,36 @@
 		
 		console.log(testPitch);
 
-		console.log(PitchPos(testPitch.letter, testPitch.octave));
+		console.log(calcPitchPos(testPitch.letter, testPitch.octave));
 
-		console.log(PosOctave(29));
+		console.log(calcPosOctave(29));
 
-		console.log(PosLetter(29));
+		console.log(calcPosLetter(29));
 
-		console.log(PosOrder(29));
+		console.log(calcPosOrder(29));
 
 		console.log(new Interval('ddd2'));
-		console.log(getIntervalName(new Pitch('C♯♯2'), new Pitch('D♭♭2')));
-		console.log(getIntervalName(new Pitch('B3'), new Pitch('C♭♭♭4')));
+		console.log(buildIntervalName(new Pitch('C♯♯2'), new Pitch('D♭♭2')));
+		console.log(buildIntervalName(new Pitch('B3'), new Pitch('C♭♭♭4')));
 
 		console.log(new Interval('d5'));
-		console.log(getIntervalName(new Pitch('B3'), new Pitch('F4')));
-		console.log(getIntervalName(new Pitch('C4'), new Pitch('G♭4')));
+		console.log(buildIntervalName(new Pitch('B3'), new Pitch('F4')));
+		console.log(buildIntervalName(new Pitch('C4'), new Pitch('G♭4')));
 
 		console.log(new Interval('AAA2'));
-		console.log(getIntervalName(new Pitch('C♭4'), new Pitch('D♯♯4')));
-		console.log(getIntervalName(new Pitch('C4'), new Pitch('D♯♯♯4')));
-		console.log(getIntervalName(new Pitch('B3'), new Pitch('C♯♯♯♯4')));
+		console.log(buildIntervalName(new Pitch('C♭4'), new Pitch('D♯♯4')));
+		console.log(buildIntervalName(new Pitch('C4'), new Pitch('D♯♯♯4')));
+		console.log(buildIntervalName(new Pitch('B3'), new Pitch('C♯♯♯♯4')));
 
 		console.log(new Interval('M3'));
-		console.log(getIntervalName(new Pitch('B♭3'), new Pitch('D4')));
-		console.log(getIntervalName(new Pitch('D4'), new Pitch('F♯4')));
-		console.log(getIntervalName(new Pitch('C4'), new Pitch('E4')));
+		console.log(buildIntervalName(new Pitch('B♭3'), new Pitch('D4')));
+		console.log(buildIntervalName(new Pitch('D4'), new Pitch('F♯4')));
+		console.log(buildIntervalName(new Pitch('C4'), new Pitch('E4')));
 
 		console.log(new Interval('P5'));
-		console.log(getIntervalName(new Pitch('B♭3'), new Pitch('F4')));
-		console.log(getIntervalName(new Pitch('B♮3'), new Pitch('F♯4')));
-		console.log(getIntervalName(new Pitch('C4'), new Pitch('G4')));
+		console.log(buildIntervalName(new Pitch('B♭3'), new Pitch('F4')));
+		console.log(buildIntervalName(new Pitch('B♮3'), new Pitch('F♯4')));
+		console.log(buildIntervalName(new Pitch('C4'), new Pitch('G4')));
 
 		*/
 
@@ -121,27 +121,27 @@
         console.log('==================================================');
         console.log(new Pitch('C♭4'));
         console.log(new Interval('m2'));
-        console.log(Harmonize(new Pitch('C♭4'), new Interval('m2')));
+        console.log(harmonizePitch(new Pitch('C♭4'), new Interval('m2')));
 
         console.log('==================================================');
         console.log(new Pitch('C4'));
         console.log(new Interval('m3'));
-        console.log(Harmonize(new Pitch('C4'), new Interval('m3')));
+        console.log(harmonizePitch(new Pitch('C4'), new Interval('m3')));
 
         console.log('==================================================');
         console.log(new Pitch('C4'));
         console.log(new Interval('A4'));
-        console.log(Harmonize(new Pitch('C4'), new Interval('A4')));
+        console.log(harmonizePitch(new Pitch('C4'), new Interval('A4')));
 
         console.log('==================================================');
         console.log(new Pitch('C4'));
         console.log(new Interval('A6'));
-        console.log(Harmonize(new Pitch('C4'), new Interval('A6')));
+        console.log(harmonizePitch(new Pitch('C4'), new Interval('A6')));
 
         console.log('==================================================');
         console.log(new Pitch('C4'));
         console.log(new Interval('m21'));
-        console.log(Harmonize(new Pitch('C4'), new Interval('m21')));
+        console.log(harmonizePitch(new Pitch('C4'), new Interval('m21')));
     </script>
 </body>
 </html>
