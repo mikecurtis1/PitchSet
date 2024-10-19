@@ -188,11 +188,11 @@ const normalizeCompoundClass = function (n) {
 }
 
 const CalculateIntervalClass = function (p1, p2){
-    let IntervalClass = 0;
-    let n1 = GamutOrder[p1.letter] + p1.octave * 7;
-    let n2 = GamutOrder[p2.letter] + p2.octave * 7;
-    IntervalClass = Math.abs(n1 - n2) + 1;
-    let normalized = normalizeCompoundClass(IntervalClass);
+    let intervalClass = 0;
+    let pos1 = PitchPos(p1.letter, p1.octave);
+    let pos2 = PitchPos(p2.letter, p2.octave);
+    intervalClass = normalizeCompoundClass( Math.abs(pos1 - pos2) + 1 );
+    let normalized = intervalClass;
     return normalized;
 }
 
