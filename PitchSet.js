@@ -101,7 +101,7 @@ class Pitch {
         this.octave = limitOctave(Number(str.substring(str.length-1)));
         this.halfStepAlterations = quantifyAccidentals(this.accidentals);
     }
-}
+};
 
 class Interval {
     constructor(str) {
@@ -112,7 +112,7 @@ class Interval {
         this.normalized = normalizeCompoundClass(this.number);
         this.halfSteps = calcHalfStepsFromCodes(this.simple, this.normalized, this.quality);
     }
-}
+};
 
 const calcPitchPos = function(letter, octave) {
     let pitchPos = 0;
@@ -120,14 +120,14 @@ const calcPitchPos = function(letter, octave) {
     order = GamutOrder[letter];
     pitchPos = order + (octave * 7);
     return pitchPos;
-}
+};
 
 const calcPosOctave = function (pos){
     let octave = 0;
     pos = Number(pos);
     octave = Math.floor(pos/7);
     return octave;
-}
+};
 
 const calcPosLetter = function (pos) {
     let letter = '';
@@ -138,7 +138,7 @@ const calcPosLetter = function (pos) {
     }
     letter = GamutOrder[i];
     return letter;
-}
+};
 
 const calcPosOrder = function (pos) {
     let order = 0;
@@ -148,7 +148,7 @@ const calcPosOrder = function (pos) {
         order = 7;
     }
     return order
-}
+};
 
 const calcPitchPosChromatic = function(letter, octave) {
     let pitchPos = 0;
@@ -156,7 +156,7 @@ const calcPitchPosChromatic = function(letter, octave) {
     order = ChromaticOrder[letter];
     pitchPos = order + (octave * 12);
     return pitchPos;
-}
+};
 
 const limitOctave = function (n){
     let octaveNum = Number(n);
@@ -166,7 +166,7 @@ const limitOctave = function (n){
         return 8;
     } 
     return octaveNum;
-}
+};
 
 const calcSimpleClass = function (n) {
     let simple = 0;
@@ -179,7 +179,7 @@ const calcSimpleClass = function (n) {
         simple = 8;
     }
     return simple;
-}
+};
 
 const normalizeCompoundClass = function (n) {
     n = Number(n);
@@ -193,7 +193,7 @@ const normalizeCompoundClass = function (n) {
         }
     }
     return normalized;
-}
+};
 
 const normalizeCompoundHalfSteps = function(n){
     n = Number(n);
@@ -207,7 +207,7 @@ const normalizeCompoundHalfSteps = function(n){
         }
     }
     return normalized;
-}
+};
 
 const calcIntervalClass = function (p1, p2){
     let intervalClass = 0;
@@ -216,7 +216,7 @@ const calcIntervalClass = function (p1, p2){
     intervalClass = Math.abs(pos1 - pos2) + 1;
     intervalClass = normalizeCompoundClass(intervalClass);
     return intervalClass;
-}
+};
 
 const quantifyAccidentals = function (str){
     let halfSteps = 0;
@@ -240,7 +240,7 @@ const quantifyAccidentals = function (str){
         }
     );
     return halfSteps;
-}
+};
 
 const calcHalfStepsFromPitches = function (p1, p2, accidentalsTotal=false){
     let halfSteps = 0;
@@ -262,7 +262,7 @@ const calcHalfStepsFromPitches = function (p1, p2, accidentalsTotal=false){
         halfSteps = normalizeCompoundHalfSteps(halfSteps);
         return halfSteps;
     }
-}
+};
 
 const calcHalfStepsFromCodes = function (simple, normalized, quality) {
     let halfSteps = 0;
@@ -284,7 +284,7 @@ const calcHalfStepsFromCodes = function (simple, normalized, quality) {
         halfSteps = halfSteps + (Math.ceil(q) - 1) * 12
     }
     return halfSteps;
-}
+};
 
 const buildIntervalName = function(pitch1, pitch2){
     let intervalName = '';
@@ -313,7 +313,7 @@ const buildIntervalName = function(pitch1, pitch2){
         intervalName = String('A').repeat(m).concat(intervalName);
     }
     return intervalName;
-}
+};
 
 const harmonizePitch = function (pitch1, interval) {
     let pitch2 = null;
@@ -336,4 +336,4 @@ const harmonizePitch = function (pitch1, interval) {
     pitch2String = letter2 + accidentals + octave;
     pitch2 = new Pitch(pitch2String);
     return pitch2;
-}
+};
