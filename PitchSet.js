@@ -2,50 +2,50 @@ const FiniteIntervals = {
     "1": {
         "sizes": [0],
         "0": "P",
-		"P": 0
+        "P": 0
     },
     "2": {
         "sizes": [1,2],
         "1": "m",
         "2": "M",
-		"m": 1,
-		"M": 2
+        "m": 1,
+        "M": 2
     },
     "3": {
         "sizes": [3,4],
         "3": "m",
         "4": "M",
-		"m": 3,
-		"M": 4
+        "m": 3,
+        "M": 4
     },
     "4": {
         "sizes": [5],
         "5": "P",
-		"P": 5
+        "P": 5
     },
     "5": {
         "sizes": [7],
         "7": "P",
-		"P": 7
+        "P": 7
     },
     "6": {
         "sizes": [8,9],
         "8": "m",
         "9": "M",
-		"m": 8,
-		"M": 9
+        "m": 8,
+        "M": 9
     },
     "7": {
         "sizes": [10,11],
         "10": "m",
         "11": "M",
-		"m": 10,
-		"M": 11
+        "m": 10,
+        "M": 11
     },
     "8": {
         "sizes": [12],
         "12": "P",
-		"P": 12
+        "P": 12
     }
 };
 
@@ -144,9 +144,9 @@ class Pitch {
         this.accidentals = str.substring(1,str.length-1);
         this.octave = limitOctave(Number(str.substring(str.length-1)));
         this.halfStepAlterations = quantifyAccidentals(this.accidentals);
-		this.chromaticPos = calcPitchPosChromatic(this.letter, this.octave, this.halfStepAlterations);
-		this.pianoKey = expressPianoKey(this.chromaticPos);
-		this.midiNumber = expressMidiNumber(this.chromaticPos);
+        this.chromaticPos = calcPitchPosChromatic(this.letter, this.octave, this.halfStepAlterations);
+        this.pianoKey = expressPianoKey(this.chromaticPos);
+        this.midiNumber = expressMidiNumber(this.chromaticPos);
     }
 };
 
@@ -158,7 +158,7 @@ class Interval {
         this.simple = calcSimpleClass(this.number);
         this.simpleNormalized = normalizeCompoundClass(this.number);
         this.halfSteps = calcHalfStepsFromCodes(this.simple, this.simpleNormalized, this.quality);
-		this.halfStepsNormalized = calcHalfStepsFromCodes(this.simple, this.simpleNormalized, this.quality, true);
+        this.halfStepsNormalized = calcHalfStepsFromCodes(this.simple, this.simpleNormalized, this.quality, true);
     }
 };
 
@@ -363,9 +363,9 @@ const calcHalfStepsFromPitches = function (p1, p2, normalize=false){
     let pos2 = calcPitchPosChromatic(p2.letter, p2.octave, p2.halfStepAlterations);
 	halfSteps = Math.abs(pos1 - pos2);
     if (normalize === true) {
-		return normalizeCompoundHalfSteps(halfSteps);
+	return normalizeCompoundHalfSteps(halfSteps);
     } else {
-		return halfSteps;
+	return halfSteps;
     }
 };
 
@@ -384,12 +384,12 @@ const calcHalfStepsFromCodes = function (simple, normalized, quality, normalize=
             halfSteps = FiniteIntervals[simple][quality];
         }
     }
-	if ( normalize === true ) {
-		let q = normalized / 8;
-		if ( q >= 1 ) {
-			halfSteps = halfSteps + (Math.ceil(q) - 1) * 12
-		}
+    if ( normalize === true ) {
+	let q = normalized / 8;
+	if ( q >= 1 ) {
+            halfSteps = halfSteps + (Math.ceil(q) - 1) * 12
 	}
+    }
     return halfSteps;
 };
 
@@ -424,20 +424,20 @@ const buildIntervalName = function(pitch1, pitch2){
 
 const transposePitch = function (pitch1, interval) {
     let pitch2 = null;
-	let pos1 = calcPitchPos(pitch1.letter, pitch1.octave);
-	let pos2 = pos1 + Number(interval.simpleNormalized) - 1;
+    let pos1 = calcPitchPos(pitch1.letter, pitch1.octave);
+    let pos2 = pos1 + Number(interval.simpleNormalized) - 1;
     let letter2 = calcPosLetter(pos2);
     let octave2 = calcPosOctave(pos2);
-	let tempHalfSteps = calcHalfStepsFromPitches(pitch1, new Pitch(letter2 + '' + octave2), true);
-	let diff = interval.halfStepsNormalized - tempHalfSteps;
-	let accidentals = '';
-	if (diff < 0) {
+    let tempHalfSteps = calcHalfStepsFromPitches(pitch1, new Pitch(letter2 + '' + octave2), true);
+    let diff = interval.halfStepsNormalized - tempHalfSteps;
+    let accidentals = '';
+    if (diff < 0) {
         accidentals = String('♭').repeat(Math.abs(diff));
     } else if (diff > 0){
         accidentals = String('♯').repeat(Math.abs(diff));
     } else {
         accidentals = '♮';
     }
-	pitch2 = new Pitch(letter2 + accidentals + octave2);
-	return pitch2;
+    pitch2 = new Pitch(letter2 + accidentals + octave2);
+    return pitch2;
 };
