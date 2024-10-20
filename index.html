@@ -10,6 +10,96 @@
     <script>
 	
 		/*
+		console.log(expressOrdinal(-1));
+		console.log(expressOrdinal(0));
+		console.log(expressOrdinal(1));
+		console.log(expressOrdinal(2));
+		console.log(expressOrdinal(3));
+		console.log(expressOrdinal(4));
+		console.log(expressOrdinal(9));
+		console.log(expressOrdinal(10));
+		console.log(expressOrdinal(11));
+		console.log(expressOrdinal(12));
+		console.log(expressOrdinal(13));
+		console.log(expressOrdinal(14));
+		console.log(expressOrdinal(20));
+		console.log(expressOrdinal(21));
+		console.log(expressOrdinal(22));
+		console.log(expressOrdinal(23));
+		console.log(expressOrdinal(24));
+		console.log(expressOrdinal(25));
+		console.log(expressOrdinal(120));
+		console.log(expressOrdinal(121));
+		console.log(expressOrdinal(122));
+		console.log(expressOrdinal(123));
+		console.log(expressOrdinal(124));
+		console.log(expressOrdinal(125));
+		console.log(expressOrdinal(1, true));
+		console.log(expressOrdinal(2, true));
+		console.log(expressOrdinal(3, true));
+		console.log(expressOrdinal(14, true));
+		console.log(expressOrdinal(15, true));
+		console.log(expressOrdinal(16, true));
+		*/
+
+		/*console.log(normalizeDoubleAccidental('𝄫'));
+		console.log(normalizeDoubleAccidental('♭♭♭'));
+		console.log(normalizeDoubleAccidental('♭♭'));
+		console.log(normalizeDoubleAccidental('♭'));
+		console.log(normalizeDoubleAccidental(5));
+		console.log(normalizeDoubleAccidental('foo'));
+		console.log(normalizeDoubleAccidental('♯'));
+		console.log(normalizeDoubleAccidental('♯♯'));
+		console.log(normalizeDoubleAccidental('♯♯♯'));
+		console.log(normalizeDoubleAccidental('𝄪'));*/
+
+		/*
+		console.log(expressTuple('foo'));
+		console.log(expressTuple('oo'));
+		console.log(expressTuple('o'));
+		console.log(expressTuple('♭'));
+		console.log(expressTuple('♭♭'));
+		console.log(expressTuple('𝄫'));
+		console.log(expressTuple('𝄫𝄫'));
+		console.log(expressTuple('♭♭♭♭♭♭'));
+		console.log(expressTuple('♯'));
+		console.log(expressTuple('♯♯'));
+		console.log(expressTuple('𝄪'));
+		console.log(expressTuple('𝄪𝄪'));
+		console.log(expressTuple('♯♯♯♯♯♯♯'));
+		*/
+
+		//let pitch = new Pitch('C♯4');
+		/*console.log('============');
+		pitch = new Pitch('A0');
+		pos = calcPitchPosChromatic(pitch.letter, pitch.octave, pitch.halfStepAlterations);
+		pitch.chromaticPos = pos;
+		pitch.pianoKey = expressPianoKey(pos);
+		pitch.midiNumber = expressMidiNumber(pos);
+		console.log(pitch);
+		console.log('============');
+		pitch = new Pitch('C4');
+		pos = calcPitchPosChromatic(pitch.letter, pitch.octave, pitch.halfStepAlterations);
+		pitch.chromaticPos = pos;
+		pitch.pianoKey = expressPianoKey(pos);
+		pitch.midiNumber = expressMidiNumber(pos);
+		console.log(pitch);
+		console.log('============');
+		pitch = new Pitch('C♯4');
+		pos = calcPitchPosChromatic(pitch.letter, pitch.octave, pitch.halfStepAlterations);
+		pitch.chromaticPos = pos;
+		pitch.pianoKey = expressPianoKey(pos);
+		pitch.midiNumber = expressMidiNumber(pos);
+		console.log(pitch);
+		console.log('============');
+		pitch = new Pitch('C♭♭♭4');
+		pos = calcPitchPosChromatic(pitch.letter, pitch.octave, pitch.halfStepAlterations);
+		pitch.chromaticPos = pos;
+		pitch.pianoKey = expressPianoKey(pos);
+		pitch.midiNumber = expressMidiNumber(pos);
+		console.log(pitch);*/
+
+		/*
 		// ♯ ♭
 		const Pitch1 = new Pitch('C♯♯2');
 		const Pitch2 = new Pitch('D♭♭2');
@@ -121,27 +211,55 @@
         console.log('==================================================');
         console.log(new Pitch('C♭4'));
         console.log(new Interval('m2'));
-        console.log(harmonizePitch(new Pitch('C♭4'), new Interval('m2')));
+        console.log(transposePitch(new Pitch('C♭4'), new Interval('m2')));
 
         console.log('==================================================');
         console.log(new Pitch('C4'));
         console.log(new Interval('m3'));
-        console.log(harmonizePitch(new Pitch('C4'), new Interval('m3')));
+        console.log(transposePitch(new Pitch('C4'), new Interval('m3')));
 
         console.log('==================================================');
         console.log(new Pitch('C4'));
         console.log(new Interval('A4'));
-        console.log(harmonizePitch(new Pitch('C4'), new Interval('A4')));
+        console.log(transposePitch(new Pitch('C4'), new Interval('A4')));
 
         console.log('==================================================');
         console.log(new Pitch('C4'));
         console.log(new Interval('A6'));
-        console.log(harmonizePitch(new Pitch('C4'), new Interval('A6')));
+        console.log(transposePitch(new Pitch('C4'), new Interval('A6')));
 
         console.log('==================================================');
         console.log(new Pitch('C4'));
         console.log(new Interval('m21'));
-        console.log(harmonizePitch(new Pitch('C4'), new Interval('m21')));
+        console.log(transposePitch(new Pitch('C4'), new Interval('m21')));
+		
+		/*console.log('==================================================');
+        console.log(new Pitch('C𝄫2'));
+		console.log('==================================================');
+        console.log(new Pitch('C𝄫𝄫2'));
+		
+		console.log('==================================================');
+        console.log(new Pitch('E𝄫𝄫4'));
+        console.log(new Interval('P4'));
+        console.log(transposePitch(new Pitch('E𝄫𝄫4'), new Interval('P4')));
+		
+		console.log('==================================================');
+        console.log(new Pitch('E♭p♭4'));
+        console.log(new Interval('P4'));
+        console.log(transposePitch(new Pitch('E♭p♭4'), new Interval('P4')));
+		
+		console.log('==================================================');
+        console.log(new Pitch('E♭♯4'));
+        console.log(new Interval('P4'));
+        console.log(transposePitch(new Pitch('E♭♯4'), new Interval('P4')));
+		
+		console.log('==================================================');
+        console.log(new Pitch('E♭4'));
+        console.log(new Interval('Pc4'));
+        console.log(transposePitch(new Pitch('E♭4'), new Interval('Pc4')));*/
+		
+		//console.log(calcHalfStepsFromCodes('7', '14', 'm'));
+		//console.log(calcHalfStepsFromCodes('7', '14', 'm', true));
     </script>
 </body>
 </html>
