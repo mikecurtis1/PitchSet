@@ -49,6 +49,12 @@ const FiniteIntervals = {
     }
 };
 
+const IntervalQualities = {
+    'P':'perfect',
+    'M':'major',
+    'm':'minor'
+};
+
 const GamutOrder = {
     'C':1,
     'D':2,
