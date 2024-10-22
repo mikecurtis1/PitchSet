@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Rye&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Solway:wght@300;400;500;700;800&family=Special+Elite&display=swap');
 
 html { 
 	height: 100%;
@@ -13,7 +14,7 @@ html {
 
 body {
 	margin: 1em;
-	padding: 1em;
+	padding: 2em  4em;
 	font-family: "IM Fell English", serif;
 }
 
@@ -27,10 +28,23 @@ h1 {
 	font-size: 3em;
 }
 
-p {
+div.description {
 	font-size: 1em;
-	background: rgba(255, 255, 255, 0.66);
-	padding: 1em;
+	background: rgba(255, 255, 235, 0.66);
+	padding: 2em 3em;
+	margin: 0 0 1em 0;
+	font-family: "Solway", serif;
+	border: solid #fff 0.2em;
+}
+
+p {
+	margin: 0 0 1em 0;
+	padding: 0;
+	line-height: 1.33em;
+}
+
+a, a:hover,a:visited {
+	color: #631;
 }
 
 legend {
@@ -68,7 +82,7 @@ div.pitch label {
 div.pitch select {
 	margin: 0 0 0 0;
 	padding: 1em;
-	height: 20em;
+	height: 24em;
 }
 
 div.pitch_set_intervals {
@@ -105,10 +119,11 @@ textarea {
 	margin: 1em;
 	padding: 1em;
 	width: 75%;
-	height: 5em;
-	border: 0;
+	height: 8em;
+	border: solid #fff 0.1em;
 	font-family: "IM Fell English", serif;
 	font-size: 2em;
 	background-image: url("staff_paper.jpg");
 	background-repeat: repeat-x;
+	line-height: 2em;
 }
