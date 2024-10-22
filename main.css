@@ -1,0 +1,115 @@
+@import url('https://fonts.googleapis.com/css2?family=Rye&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&display=swap');
+
+html { 
+    height: 100%;
+    width: 100%;
+    background: url("paper.jpg") no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+body {
+	margin: 1em;
+	padding: 1em;
+	font-family: "IM Fell English", serif;
+}
+
+H1, legend {
+	font-family: "Rye", serif;
+	font-weight: 400;
+	font-style: normal;
+}
+
+h1 {
+	font-size: 3em;
+}
+
+p {
+	font-size: 1em;
+	background: rgba(255, 255, 255, 0.66);
+	padding: 1em;
+}
+
+legend {
+	font-size: 2em;
+}
+
+option {
+	font-family: "IM Fell English", serif;
+	font-size: 1.5em;
+}
+
+fieldset {
+	margin: 0 0 1em 0;
+	padding: 2em;
+	border-radius: 1em;
+	background: rgba(255, 255, 255, 0.66);
+}
+
+label {
+	visibility: hidden;
+}
+
+div.pitch {
+}
+
+div.pitch div.pitch-param {
+	display: table-cell;
+	padding: 0 1em 0 0;
+}
+
+div.pitch label {
+	display: block;
+	visibility: visible;
+}
+
+div.pitch select {
+	margin: 0 0 0 0;
+	padding: 1em;
+	height: 20em;
+}
+
+div.pitch_set_intervals {
+	text-align: left;
+}
+
+div.pitch_set_intervals select {
+	margin: 1em;
+	padding: 1em;
+}
+
+select#pitch_set_intervals option {
+	margin: 0 0 0.25em 0;
+}
+
+button {
+	margin: 1em;
+	padding: 0.25em 1em;
+	font-family: "IM Fell English", serif;
+	font-size: 1.5em;
+	border-radius: 0.5em;
+	border: solid #888 0.1em;
+	background-color: #fff;
+	color:#000;
+}
+
+button:hover {
+	border: solid #000 0.1em;
+	background-color: #000;
+	color:#fff;
+}
+
+textarea {
+	margin: 1em;
+	padding: 1em;
+	width: 75%;
+	height: 5em;
+	border: 0;
+	font-family: "IM Fell English", serif;
+	font-size: 2em;
+	background-image: url("staff_paper.jpg");
+	background-repeat: repeat-x;
+}

@@ -144,11 +144,20 @@ const Accidentals = {
 };
 
 class Pitch {
-    constructor(str) {
+    constructor(str, explicit_natural=false) {
         this.string = str;
         this.letter = str.substring(0,1);
-        this.accidentals = str.substring(1,str.length-1);
-        this.octave = limitOctave(Number(str.substring(str.length-1)));
+		this.accidentals = '';
+		let regex = new RegExp('([𝄫♭♮♯𝄪]+)', 'u');
+		if ( str.match(regex) !== null ) {
+			this.accidentals = str.match(regex)[0];
+		}
+		this.accidentals = normalizeDoubleAccidental(this.accidentals);
+		if (this.accidentals === '' && explicit_natural === true) {
+			this.accidentals = '♮';
+		}
+		this.octave = Number(str.match(/(\d+)$/)[0]);
+		this.string = this.letter + this.accidentals + this.octave;
         this.halfStepAlterations = quantifyAccidentals(this.accidentals);
         this.chromaticPos = calcPitchPosChromatic(this.letter, this.octave, this.halfStepAlterations);
         this.pianoKey = expressPianoKey(this.chromaticPos);
@@ -221,16 +230,6 @@ const expressTuple = function (str) {
         prepended = str;
     }
     return prepended;
-};
-
-const limitOctave = function (n){
-    let octaveNum = Number(n);
-    if (octaveNum < 0) {
-        return 0;
-    } else if (octaveNum > 8) {
-        return 8;
-    } 
-    return octaveNum;
 };
 
 const normalizeCompoundClass = function (n) {
@@ -308,7 +307,7 @@ const calcPitchPos = function(letter, octave) {
 const calcPosOctave = function (pos){
     let octave = 0;
     pos = Number(pos);
-    octave = Math.floor(pos/7);
+    octave = Math.floor((pos-1)/7);
     return octave;
 };
 
@@ -369,9 +368,9 @@ const calcHalfStepsFromPitches = function (p1, p2, normalize=false){
     let pos2 = calcPitchPosChromatic(p2.letter, p2.octave, p2.halfStepAlterations);
 	halfSteps = Math.abs(pos1 - pos2);
     if (normalize === true) {
-	return normalizeCompoundHalfSteps(halfSteps);
+		return normalizeCompoundHalfSteps(halfSteps);
     } else {
-	return halfSteps;
+		return halfSteps;
     }
 };
 
@@ -390,11 +389,11 @@ const calcHalfStepsFromCodes = function (simple, normalized, quality, normalize=
             halfSteps = FiniteIntervals[simple][quality];
         }
     }
-    if ( normalize === true ) {
-	let q = normalized / 8;
-	if ( q >= 1 ) {
-            halfSteps = halfSteps + (Math.ceil(q) - 1) * 12
-	}
+    if ( normalize === false ) {
+		let q = normalized / 8;
+		if ( q >= 1 ) {
+			halfSteps = halfSteps + (Math.ceil(q) - 1) * 12
+		}
     }
     return halfSteps;
 };
@@ -429,21 +428,24 @@ const buildIntervalName = function(pitch1, pitch2){
 };
 
 const transposePitch = function (pitch1, interval) {
-    let pitch2 = null;
-    let pos1 = calcPitchPos(pitch1.letter, pitch1.octave);
+	let transposedPitch = null;
+	let pos1 = calcPitchPos(pitch1.letter, pitch1.octave);
     let pos2 = pos1 + Number(interval.simpleNormalized) - 1;
     let letter2 = calcPosLetter(pos2);
     let octave2 = calcPosOctave(pos2);
-    let tempHalfSteps = calcHalfStepsFromPitches(pitch1, new Pitch(letter2 + '' + octave2), true);
-    let diff = interval.halfStepsNormalized - tempHalfSteps;
-    let accidentals = '';
-    if (diff < 0) {
-        accidentals = String('♭').repeat(Math.abs(diff));
-    } else if (diff > 0){
-        accidentals = String('♯').repeat(Math.abs(diff));
-    } else {
-        accidentals = '♮';
-    }
-    pitch2 = new Pitch(letter2 + accidentals + octave2);
-    return pitch2;
-};
+	let pitch2 = new Pitch(letter2 + '' + octave2);
+	let accidentals = '';
+	let diff = Math.abs(pitch2.chromaticPos - (pitch1.chromaticPos + interval.halfSteps));
+	if (pitch2.chromaticPos < pitch1.chromaticPos + interval.halfSteps) {
+		// add sharps
+		accidentals = String('♯').repeat(diff );
+		transposedPitch =  new Pitch(letter2 + accidentals + octave2);
+	} else if (pitch2.chromaticPos > pitch1.chromaticPos + interval.halfSteps) {
+		// add flats
+		accidentals = String('♭').repeat(diff );
+		transposedPitch =  new Pitch(letter2 + accidentals + octave2);
+	} else {
+		transposedPitch =  pitch2;
+	}
+	return transposedPitch;
+}
