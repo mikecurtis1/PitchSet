@@ -130,17 +130,17 @@ const Tuples = {
 	10:'decuple'
 };
 
-const Accidentals = {
-	'double flat':'𝄫',
-	'flat':'♭',
-	'natural':'♮',
-	'sharp':'♯',
-	'double sharp':'𝄪',
-	'𝄫':'double flat',
-	'♭':'flat',
-	'♮':'natural',
-	'♯':'sharp',
-	'𝄪':'double sharp'
+var accidentalMap = {
+	"bb": "𝄫",
+	"b": "♭",
+	"=": "♮",
+	"#": "♯",
+	"x": "𝄪",
+	"𝄫": "bb",
+	"♭": "b",
+	"♮": "=",
+	"♯": "#",
+	"𝄪": "x"
 };
 
 class Pitch {
