@@ -35,7 +35,7 @@ Each pitch internally tracks:
 Work with intervals using standard music theory notation:
 
 ```Javascript
-let i = new Interval("M3"); // Major third
+let i = new Interval("m3"); // Minor third
 ```
 
 Supports:
@@ -50,10 +50,10 @@ Transpose pitches correctly spelled, not just numerically:
 
 ```Javascript
 let p1 = new Pitch("C4");
-let i = new Interval("M3");
+let i = new Interval("m3");
 
 let result = transposePitch(p1, i);
-// → E4 (not D♯4)
+// → E♭4 (not D♯4)
 ```
 
 This is the key feature:
@@ -65,10 +65,10 @@ Determine the interval between two pitches:
 
 ```Javascript
 let p1 = new Pitch("C4");
-let p2 = new Pitch("E4");
+let p2 = new Pitch("E♭4");
 
 let name = buildIntervalName(p1, p2);
-// → "M3"
+// → "m3"
 ```
 ### Why This Exists
 
@@ -92,7 +92,7 @@ This makes it useful for:
 ```Javascript
 let root = new Pitch("C4");
 
-let intervals = ["M2","M3","P4","P5","M6","M7"];
+let intervals = ["M2","M3","P4","P5","M6","M7"]; // a major scale
 
 let scale = intervals.map(i => {
   return transposePitch(root, new Interval(i));
