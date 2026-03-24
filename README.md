@@ -8,13 +8,11 @@ Rather than treating notes as raw numbers, PitchSet models pitches and intervals
 
 This kind of logic underpins professional tools like Sibelius, Finale, and MuseScore, as well as MIDI-based workflows and algorithmic composition systems.
 
-https://mikecurtis1.github.io/PitchSet/
-
 ## What It Does
 
 PitchSet provides a small set of primitives for:
 
-🎵 Pitch Representation
+### Pitch Representation
 
 Create fully specified pitches including:
 
@@ -32,7 +30,7 @@ Each pitch internally tracks:
 * MIDI note number
 * piano key index
 
-## 🎼 Interval Modeling
+### Interval Modeling
 
 Work with intervals using standard music theory notation:
 
@@ -46,3 +44,72 @@ Supports:
 * augmented (`A`) and diminished (`d`) (including multiples like `AA`, `dd`)
 * compound intervals (9th, 13th, etc.)
 
+### Transposition (Core Feature)
+
+Transpose pitches correctly spelled, not just numerically:
+
+```Javascript
+let p1 = new Pitch("C4");
+let i = new Interval("M3");
+
+let result = transposePitch(p1, i);
+// → E4 (not D♯4)
+```
+
+This is the key feature:
+* enharmonic correctness is preserved automatically.
+
+### Interval Detection
+
+Determine the interval between two pitches:
+
+```Javascript
+let p1 = new Pitch("C4");
+let p2 = new Pitch("E4");
+
+let name = buildIntervalName(p1, p2);
+// → "M3"
+```
+### Why This Exists
+
+Most programming approaches to music reduce everything to numbers (e.g., MIDI note 60). That’s useful—but it loses notation-level meaning.
+
+PitchSet instead models:
+
+* diatonic structure (letter names)
+* chromatic alteration (accidentals)
+* interval quality
+
+This makes it useful for:
+
+* notation-aware tools
+* theory education
+* algorithmic composition
+* generating scales, chords, and voicings with correct spelling
+
+### Example: Building a Scale
+
+```Javascript
+let root = new Pitch("C4");
+
+let intervals = ["M2","M3","P4","P5","M6","M7"];
+
+let scale = intervals.map(i => {
+  return transposePitch(root, new Interval(i));
+});
+```
+## Live Demo
+
+https://mikecurtis1.github.io/PitchSet/
+
+## Design Notes (for Developers)
+
+* Uses dual systems:
+  * Gamut order (A–G cycle) for interval class
+  * Chromatic order (12-tone) for semitone calculation
+* Encodes interval logic via a finite lookup table (FiniteIntervals)
+* Separates:
+  * symbolic meaning (interval names)
+  * numeric realization (half steps)
+
+This hybrid approach mirrors how traditional theory bridges music staff notation and interval size.
