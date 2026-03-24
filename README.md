@@ -31,3 +31,18 @@ Each pitch internally tracks:
 * chromatic position
 * MIDI note number
 * piano key index
+
+## 🎼 Interval Modeling
+
+Work with intervals using standard music theory notation:
+
+```Javascript
+let i = new Interval("M3"); // Major third
+```
+
+Supports:
+
+* perfect / major / minor
+* augmented (`A`) and diminished (`d`) (including multiples like `AA`, `dd`)
+* compound intervals (9th, 13th, etc.)
+
