@@ -97,6 +97,8 @@ let intervals = ["M2","M3","P4","P5","M6","M7"]; // a major scale
 let scale = intervals.map(i => {
   return transposePitch(root, new Interval(i));
 });
+
+// → C4 D4 E4 F4 G4 A4 B4 C5
 ```
 ## Live Demo
 
