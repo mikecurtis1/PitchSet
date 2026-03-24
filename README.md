@@ -4,9 +4,7 @@ PitchSet is a lightweight JavaScript library for working with musically spelled 
 
 Rather than treating notes as raw numbers, PitchSet models pitches and intervals the way musicians actually think about them:
 
-`C♯` is different from `D♭`
-intervals have qualities like major, minor, and perfect
-transposition preserves correct spelling, not just pitch distance
+`C♯` is different from `D♭`. Intervals have qualities like major, minor, and perfect. Transposition preserves correct spelling, not just pitch distance.
 
 This kind of logic underpins professional tools like Sibelius, Finale, and MuseScore, as well as MIDI-based workflows and algorithmic composition systems.
 
